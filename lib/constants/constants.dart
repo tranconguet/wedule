@@ -16,6 +16,7 @@ enum EventType {
   camping,
   hanging,
   eating,
+  relax,
 }
 
 enum EventLengthType { long, short }

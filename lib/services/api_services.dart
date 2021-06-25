@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 class ApiServices {
   static String token = Get.find<AuthController>().token.value;
   static var client = http.Client();
-  static String host = 'http://127.0.0.1:3000';
+  static String host = 'https://wedule-server.herokuapp.com';
 
   static Future<String> login(String userName, String password) async {
-    var url = Uri.parse("${host}/users/login");
+    var url = Uri.parse("$host/users/login");
     var respone = await client.post(
       url,
       body: {'userName': userName, 'password': password},
@@ -59,7 +59,7 @@ class ApiServices {
   }
 
   static Future<User> getInfoByToken(String token) async {
-    var url = Uri.parse("${host}/users/token");
+    var url = Uri.parse("$host/users/token");
     var respone = await client.get(
       url,
       headers: {'auth-token': token},

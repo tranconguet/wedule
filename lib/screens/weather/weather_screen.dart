@@ -6,6 +6,10 @@ class WeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
+        automaticallyImplyLeading: false,
+      ),
       body: Body(),
     );
   }

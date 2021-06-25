@@ -36,7 +36,7 @@ class _BodyState extends State<Body> {
         children: [
           Column(
             children: [
-              // display  current date
+              // display current date
               Container(
                 height: SizeConfig.screenHeight * 0.09,
                 margin: EdgeInsets.only(bottom: 30),
@@ -94,15 +94,9 @@ class _BodyState extends State<Body> {
               ContentContainer(
                 child: Column(
                   children: [
+                    AddEventButton(),
                     Expanded(
-                      child: Column(
-                        children: [
-                          AddEventButton(),
-                          Expanded(
-                            child: DisplayEvents(currentDate: _currentDate),
-                          ),
-                        ],
-                      ),
+                      child: DisplayEvents(currentDate: _currentDate),
                     ),
                   ],
                 ),
@@ -135,6 +129,75 @@ class AddEventButton extends StatelessWidget {
           child: SvgPicture.asset("assets/images/plus.svg"),
         ),
       ),
+    );
+  }
+}
+
+class ChangeTimeBox extends StatelessWidget {
+  const ChangeTimeBox({
+    Key key,
+    @required List<DateTime> dateList,
+    @required PageController pagecontroller,
+    @required this.changeDate,
+  })  : _dateList = dateList,
+        _pagecontroller = pagecontroller,
+        super(key: key);
+
+  final List<DateTime> _dateList;
+  final PageController _pagecontroller;
+  final Function changeDate;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Container(
+            child: PageView.builder(
+              itemCount: _dateList.length,
+              controller: _pagecontroller,
+              onPageChanged: (value) {
+                changeDate(_dateList[value]);
+              },
+              itemBuilder: (context, index) =>
+                  DateBox(currentDate: _dateList[index]),
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // back button
+            ChangeDayButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.lightBlue,
+              ),
+              press: () {
+                _pagecontroller.previousPage(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              },
+            ),
+            SizedBox(width: SizeConfig.screenWidth * 0.5),
+            // forward button
+            ChangeDayButton(
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.lightBlue,
+              ),
+              press: () {
+                _pagecontroller.nextPage(
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

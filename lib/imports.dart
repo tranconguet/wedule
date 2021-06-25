@@ -48,6 +48,8 @@ export 'package:schedule_app/screens/select_profile/components/create_new_profil
 
 export 'package:schedule_app/screens/select_profile/components/profile_card.dart';
 
+export 'package:schedule_app/screens/schedule/components/changed_date_box.dart';
+
 // constants
 export 'package:schedule_app/constants/constants.dart';
 export 'package:schedule_app/constants/size_config.dart';
